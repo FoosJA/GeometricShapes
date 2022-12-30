@@ -8,19 +8,41 @@ namespace ShapeLib
 {
 	public class Circle : IShape
 	{
-		public double Radius { get; }
-		public double Diametr => 2 * Radius;
+		private double[] _segment = new double[(int)ShapeType.Circle];
+
+		/// <summary>
+		/// Сегменты круга
+		/// </summary>
+		public double[] Segments => _segment;
+
+		/// <summary>
+		/// Радиус
+		/// </summary>
+		private double Radius => Segments[0];
+
+		/// <summary>
+		/// Диаметр
+		/// </summary>
+		private double Diameter => 2 * Radius;
 
 		public Circle(double radius)
 		{
 			if (double.IsNaN(radius) || double.IsInfinity(radius) || radius <= 0)
 				throw new ShapeException($"Некорректное значение {radius}");
-			Radius = radius;
+
+			Segments[0] = radius;
 		}
 
-		public double Area() => Math.PI * Radius * Radius;
+		/// <summary>
+		/// Площадь круга
+		/// </summary>
+		/// <returns></returns>
+		public double Area() => Math.PI * Segments[0] * Segments[0];
 
-
-		public double Perimeter() => 2 * Math.PI * Radius;
+		/// <summary>
+		/// Периметр треугольника
+		/// </summary>
+		/// <returns></returns>
+		public double Perimeter() => 2 * Math.PI * Segments[0];
 	}
 }

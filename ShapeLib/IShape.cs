@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace ShapeLib
 {
-	internal interface IShape
+	public interface IShape
 	{
+		public double[] Segments { get; }
 		/// <summary>
 		/// Вычислить площадь
 		/// </summary>

@@ -13,17 +13,17 @@ namespace ShapeLib
 	/// </summary>
 	public class Triangle : IShape
 	{
-		/// <summary>
-		/// Тип треугольника
-		/// </summary>
-		public TriangleTypes TriangleType { get; }
-
-		private double[] _sides = new double[3];
+		private double[] _segment = new double[(int)ShapeType.Triangle];
 
 		/// <summary>
 		/// Стороны треугольника
 		/// </summary>
-		public double[] Sides => _sides;
+		public double[] Segments => _segment;
+
+		/// <summary>
+		/// Тип треугольника
+		/// </summary>
+		public TriangleTypes TriangleType { get; }
 
 		public Triangle(double a, double b, double c)
 		{
@@ -36,26 +36,34 @@ namespace ShapeLib
 					throw new ShapeException($"Сторона треугольника {item} больше суммы других сторон");
 			}
 
-			Sides[0] = a;
-			Sides[1] = b;
-			Sides[2] = c;
-			TriangleType = GetTriangleType();
+			Segments[0] = a;
+			Segments[1] = b;
+			Segments[2] = c;
+			TriangleType = _getTriangleType();
 		}
 
+		/// <summary>
+		/// Площадь треугольника
+		/// </summary>
+		/// <returns></returns>
 		public double Area()
 		{
-			var p = (Sides.Sum()) * 0.5;
-			return Math.Sqrt(p * (p - Sides[0]) * (p - Sides[1]) * (p - Sides[2]));
+			var p = (Segments.Sum()) * 0.5;
+			return Math.Sqrt(p * (p - Segments[0]) * (p - Segments[1]) * (p - Segments[2]));
 		}
 
+		/// <summary>
+		/// Периметр треугольника
+		/// </summary>
+		/// <returns></returns>
 		public double Perimeter()
 		{
-			return Sides.Sum();
+			return Segments.Sum();
 		}
 
-		private TriangleTypes GetTriangleType()
+		private TriangleTypes _getTriangleType()
 		{
-			var equalsSide = Sides.Distinct().Count();
+			var equalsSide = Segments.Distinct().Count();
 			switch (equalsSide)
 			{
 				case 1:
@@ -64,9 +72,9 @@ namespace ShapeLib
 					return TriangleTypes.IsoscelesTriangle;
 				default:
 					{
-						var hypotenuse = Sides.Max();
+						var hypotenuse = Segments.Max();
 						var squareHypotenuse = hypotenuse * hypotenuse;
-						var sumSquaresCathet = Sides.Where(s => !s.Equals(hypotenuse)).Sum(c => c * c);
+						var sumSquaresCathet = Segments.Where(s => !s.Equals(hypotenuse)).Sum(c => c * c);
 
 						return squareHypotenuse.Equals(sumSquaresCathet) ? TriangleTypes.RightTriangle : TriangleTypes.ScaleneTriangle;
 					}

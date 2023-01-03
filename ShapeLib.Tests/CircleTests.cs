@@ -39,9 +39,8 @@ namespace ShapeLib.Tests
 			Circle circle = new Circle(inputData);
 
 			var expectedArea = Math.PI * inputData * inputData;
-			var area = circle.Area();
 
-			Assert.Equal(expectedArea, area);
+			Assert.Equal(expectedArea, circle.Area());
 		}
 
 		[Fact]
@@ -51,9 +50,8 @@ namespace ShapeLib.Tests
 			Circle circle = new Circle(inputData);
 
 			var expectedPerimeter = 2 * Math.PI * inputData;
-			var perimeter = circle.Perimeter();
 
-			Assert.Equal(expectedPerimeter, perimeter);
+			Assert.Equal(expectedPerimeter, circle.Perimeter());
 		}
 	}
 }

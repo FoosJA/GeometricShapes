@@ -1,22 +1,24 @@
-﻿namespace ShapeLib.Model
+﻿using ShapeLib.Foundation;
+
+namespace ShapeLib.Model
 {
-	public interface IShape
+	public abstract class Shape
 	{
 		/// <summary>
 		/// Составляющие фигуры
 		/// </summary>
-		public double[] Segments { get; }
+		public abstract double[] Segments { get; }
 
 		/// <summary>
 		/// Вычислить площадь
 		/// </summary>
 		/// <returns></returns>
-		public double Area();
+		public abstract double Area();
 
 		/// <summary>
 		/// Вычислить периметр
 		/// </summary>
 		/// <returns></returns>
-		public double Perimeter();
+		public virtual double Perimeter() => Segments.Sum();
 	}
 }

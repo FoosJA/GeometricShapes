@@ -5,14 +5,12 @@ namespace ShapeLib.Model
 	/// <summary>
 	/// Треугольник
 	/// </summary>
-	public class Triangle : IShape
+	public sealed class Triangle : Shape
 	{
-		private const ShapeType _type = ShapeType.Triangle;
-
 		/// <summary>
 		/// Стороны треугольника
 		/// </summary>
-		public double[] Segments { get; } = new double[(int)_type];
+		public override double[] Segments { get; } = new double[(int)ShapeType.Triangle];
 
 		/// <summary>
 		/// Тип треугольника
@@ -26,8 +24,8 @@ namespace ShapeLib.Model
 			{
 				if (double.IsNaN(item) || double.IsInfinity(item) || item <= 0)
 					throw new ShapeException($"Некорректное значение {item}");
-				if (massive.Sum() - item < 0)
-					throw new ShapeException($"Сторона треугольника {item} больше суммы других сторон");
+				if (massive.Sum() - item < item)
+					throw new ShapeException($"Сторона треугольника {item} больше суммы двух других сторон");
 			}
 
 			Segments[0] = a;
@@ -47,19 +45,10 @@ namespace ShapeLib.Model
 		/// Площадь треугольника
 		/// </summary>
 		/// <returns></returns>
-		public double Area()
+		public override double Area()
 		{
 			var p = Segments.Sum() * 0.5;
 			return Math.Sqrt(p * (p - Segments[0]) * (p - Segments[1]) * (p - Segments[2]));
-		}
-
-		/// <summary>
-		/// Периметр треугольника
-		/// </summary>
-		/// <returns></returns>
-		public double Perimeter()
-		{
-			return Segments.Sum();
 		}
 
 		private TriangleType _setTriangleType()

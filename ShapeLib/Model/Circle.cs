@@ -2,14 +2,12 @@
 
 namespace ShapeLib.Model
 {
-	public class Circle : IShape
+	public sealed class Circle : Shape
 	{
-		private const ShapeType _type = ShapeType.Circle;
-
 		/// <summary>
 		/// Сегменты круга
 		/// </summary>
-		public double[] Segments { get; } = new double[(int)_type];
+		public override double[] Segments { get; } = new double[(int)ShapeType.Circle];
 
 		/// <summary>
 		/// Радиус
@@ -33,12 +31,12 @@ namespace ShapeLib.Model
 		/// Площадь круга
 		/// </summary>
 		/// <returns></returns>
-		public double Area() => Math.PI * Segments[0] * Segments[0];
+		public override double Area() => Math.PI * Segments[0] * Segments[0];
 
 		/// <summary>
 		/// Периметр треугольника
 		/// </summary>
 		/// <returns></returns>
-		public double Perimeter() => 2 * Math.PI * Segments[0];
+		public override double Perimeter() => 2 * Math.PI * Segments[0];
 	}
 }

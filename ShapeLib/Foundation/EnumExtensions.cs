@@ -2,6 +2,9 @@
 
 namespace ShapeLib.Foundation
 {
+	/// <summary>
+	/// Метод для получения строкового представления перечислений
+	/// </summary>
     internal static class EnumExtensions
 	{
 		internal static string ToDescriptionString(this ShapeType val)

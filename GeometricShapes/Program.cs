@@ -1,5 +1,5 @@
 ﻿using ShapeLib.Model;
-
+//Демонстрация возможности вычисления площади фигуры без знания типа фигуры в compile-time
 while (true)
 {
 	try

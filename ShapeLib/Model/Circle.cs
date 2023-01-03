@@ -2,6 +2,9 @@
 
 namespace ShapeLib.Model
 {
+	/// <summary>
+	/// Круг
+	/// </summary>
 	public sealed class Circle : Shape
 	{
 		/// <summary>
@@ -34,7 +37,7 @@ namespace ShapeLib.Model
 		public override double Area() => Math.PI * Segments[0] * Segments[0];
 
 		/// <summary>
-		/// Периметр треугольника
+		/// Периметр круга или длина окружности
 		/// </summary>
 		/// <returns></returns>
 		public override double Perimeter() => 2 * Math.PI * Segments[0];

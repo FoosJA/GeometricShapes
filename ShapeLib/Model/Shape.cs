@@ -1,7 +1,8 @@
-﻿using ShapeLib.Foundation;
-
-namespace ShapeLib.Model
+﻿namespace ShapeLib.Model
 {
+	/// <summary>
+	/// Фигура
+	/// </summary>
 	public abstract class Shape
 	{
 		/// <summary>

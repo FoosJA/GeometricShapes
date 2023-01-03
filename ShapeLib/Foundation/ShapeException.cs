@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ShapeLib.Foundation
+﻿namespace ShapeLib.Foundation
 {
-    public class ShapeException : Exception
-    {
-        public ShapeException(string message) : base(message) { }
-    }
+	public class ShapeException : Exception
+	{
+		public ShapeException(string message) : base(message) { }
+	}
 }

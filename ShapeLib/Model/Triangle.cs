@@ -1,29 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ShapeLib.Foundation;
 
-namespace ShapeLib
+namespace ShapeLib.Model
 {
 	/// <summary>
 	/// Треугольник
 	/// </summary>
 	public class Triangle : IShape
 	{
-		private double[] _segment = new double[(int)ShapeType.Triangle];
+		private const ShapeType _type = ShapeType.Triangle;
 
 		/// <summary>
 		/// Стороны треугольника
 		/// </summary>
-		public double[] Segments => _segment;
+		public double[] Segments { get; } = new double[(int)_type];
 
 		/// <summary>
 		/// Тип треугольника
 		/// </summary>
-		public TriangleTypes TriangleType { get; }
+		public TriangleType TriangleType { get; }
 
 		public Triangle(double a, double b, double c)
 		{
@@ -32,15 +26,22 @@ namespace ShapeLib
 			{
 				if (double.IsNaN(item) || double.IsInfinity(item) || item <= 0)
 					throw new ShapeException($"Некорректное значение {item}");
-				if ((massive.Sum() - item) < 0)
+				if (massive.Sum() - item < 0)
 					throw new ShapeException($"Сторона треугольника {item} больше суммы других сторон");
 			}
 
 			Segments[0] = a;
 			Segments[1] = b;
 			Segments[2] = c;
-			TriangleType = _getTriangleType();
+			TriangleType = _setTriangleType();
 		}
+
+		/// <summary>
+		/// Получить тип треугольника
+		/// </summary>
+		/// <returns></returns>
+		public string GetTriangleType() => TriangleType.ToDescriptionString();
+
 
 		/// <summary>
 		/// Площадь треугольника
@@ -48,7 +49,7 @@ namespace ShapeLib
 		/// <returns></returns>
 		public double Area()
 		{
-			var p = (Segments.Sum()) * 0.5;
+			var p = Segments.Sum() * 0.5;
 			return Math.Sqrt(p * (p - Segments[0]) * (p - Segments[1]) * (p - Segments[2]));
 		}
 
@@ -61,33 +62,24 @@ namespace ShapeLib
 			return Segments.Sum();
 		}
 
-		private TriangleTypes _getTriangleType()
+		private TriangleType _setTriangleType()
 		{
 			var equalsSide = Segments.Distinct().Count();
 			switch (equalsSide)
 			{
 				case 1:
-					return TriangleTypes.EquilateralTriangle;
+					return TriangleType.EquilateralTriangle;
 				case 2:
-					return TriangleTypes.IsoscelesTriangle;
+					return TriangleType.IsoscelesTriangle;
 				default:
 					{
 						var hypotenuse = Segments.Max();
 						var squareHypotenuse = hypotenuse * hypotenuse;
 						var sumSquaresCathet = Segments.Where(s => !s.Equals(hypotenuse)).Sum(c => c * c);
 
-						return squareHypotenuse.Equals(sumSquaresCathet) ? TriangleTypes.RightTriangle : TriangleTypes.ScaleneTriangle;
+						return squareHypotenuse.Equals(sumSquaresCathet) ? TriangleType.RightTriangle : TriangleType.ScaleneTriangle;
 					}
 			}
 		}
 	}
-
-	public enum TriangleTypes
-	{
-		[Description("Разносторонний треугольник")] ScaleneTriangle,
-		[Description("Равнобедренный треугольник")] IsoscelesTriangle,
-		[Description("Равноcторонний треугольник")] EquilateralTriangle,
-		[Description("Прямоугольный треугольник")] RightTriangle
-	}
-
 }

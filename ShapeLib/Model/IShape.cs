@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ShapeLib
+﻿namespace ShapeLib.Model
 {
 	public interface IShape
 	{
+		/// <summary>
+		/// Составляющие фигуры
+		/// </summary>
 		public double[] Segments { get; }
+
 		/// <summary>
 		/// Вычислить площадь
 		/// </summary>

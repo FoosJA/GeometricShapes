@@ -1,34 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ShapeLib.Foundation;
 
-namespace ShapeLib
+namespace ShapeLib.Model
 {
 	public class Circle : IShape
 	{
-		private double[] _segment = new double[(int)ShapeType.Circle];
+		private const ShapeType _type = ShapeType.Circle;
 
 		/// <summary>
 		/// Сегменты круга
 		/// </summary>
-		public double[] Segments => _segment;
+		public double[] Segments { get; } = new double[(int)_type];
 
 		/// <summary>
 		/// Радиус
 		/// </summary>
-		private double Radius => Segments[0];
+		public double Radius => Segments[0];
 
 		/// <summary>
 		/// Диаметр
 		/// </summary>
-		private double Diameter => 2 * Radius;
+		public double Diameter => 2 * Segments[0];
 
 		public Circle(double radius)
 		{
 			if (double.IsNaN(radius) || double.IsInfinity(radius) || radius <= 0)
-				throw new ShapeException($"Некорректное значение {radius}");
+				throw new ShapeException($"Радиус не может быть равен {radius}");
 
 			Segments[0] = radius;
 		}
